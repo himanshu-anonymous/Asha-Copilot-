@@ -1,131 +1,73 @@
-# Tambo Template
+# ASHA Copilot: Vahak-Setu 
 
-This is a starter NextJS app with Tambo hooked up to get your AI app development started quickly.
+**Empowering Last-Mile Healthcare with a Quantum-Neural Offline Grid.**
 
-## Get Started
+---
 
-1. Run `npm create-tambo@latest my-tambo-app` for a new project
+## 🌟 The Vision
+Healthcare in rural India is often fragmented and inaccessible due to inadequate infrastructure, critical shortages of professionals, and long travel distances. **Vahak-Setu** (ASHA Copilot) bridges this gap by transforming every rural vehicle into a medical data carrier, ensuring that even "Shadow Zones" (no-internet areas) receive professional-grade diagnostic support.
 
-2. `npm install`
+##  Execution Guide: Running the Project
+1.  **Clone the Repository**:
+    ```bash
+    git clone [https://github.com/your-username/asha-copilot.git](https://github.com/your-username/asha-copilot.git)
+    cd asha-copilot
+    ```
+2.  **Install Dependencies**: Ensure you have the health-tech stack including Dexie.js and Lucide React:
+    ```bash
+    npm install
+    ```
+3.  **Initialize Tambo**: Link your local environment to the Tambo cloud orchestrator to generate your unique API key:
+    ```bash
+    npx tambo init
+    ```
+4.  **Launch the Engine**: Start the local development server:
+    ```bash
+    npm run dev
+    ```
+5.  **Access Dashboard**: Open [http://localhost:3000](http://localhost:3000) to view the active ASHA interface.
 
-3. `npx tambo init`
+## 🧠 Technical Deep Dive
+The ASHA Copilot is engineered as a **Digital Public Infrastructure (DPI)** for low-resource settings.
 
-- or rename `example.env.local` to `.env.local` and add your tambo API key you can get for free [here](https://tambo.co/dashboard).
+### 1. Generative UI Orchestration (Tambo SDK)
+* **Dynamic Component Rendering**: Instead of a static app, the SDK uses natural language intent to decide which medical tools to render.
+* **Intent Mapping**: Intent is matched against schemas in `tambo.config.ts` to stream the `DiagnosticCard` directly into the chat.
 
-4. Run `npm run dev` and go to `localhost:3000` to use the app!
+### 2. Resilient Data Layer (Dexie.js & IndexedDB)
+* **Offline-First Architecture**: Addresses the "Shadow Zone" problem by managing an industrial-grade local database.
+* **Data Integrity**: Every patient screening is stored locally in `db.ts`, ensuring zero data loss during network outages.
 
-## Customizing
+### 3. Hydra-Mesh: Decentralized Synchronization
+* **Peer-to-Peer Relay**: Implements a protocol where medical data is "handed off" to passing vehicles (Vahaks) via Bluetooth/NFC.
+* **Data Mule Logic**: Vehicles act as physical data carriers, transporting requests from offline villages to online PHCs.
 
-### Change what components tambo can control
+### 4. Neural Logistics Engine (ST-GNN & Quantum Optimization)
+* **Spatio-Temporal GNN**: Predicts road reliability by analyzing historical monsoon data and real-time weather nodes.
+* **Quantum Routing**: Uses **Simulated Bifurcation** to solve complex multi-node routing for vaccine "Cold-Chain" stability.
 
-You can see how components are registered with tambo in `src/lib/tambo.ts`:
+### 5. Multi-Lingual Inclusivity (Bhashini API)
+* **Voice-to-Intent**: Integrates India's Bhashini API for real-time translation and voice interaction in local dialects.
 
-```tsx
-export const components: TamboComponent[] = [
-  {
-    name: "Graph",
-    description:
-      "A component that renders various types of charts (bar, line, pie) using Recharts. Supports customizable data visualization with labels, datasets, and styling options.",
-    component: Graph,
-    propsSchema: graphSchema,
-  },
-  // Add more components here
-];
-```
+##  Impact & SDG Alignment
+* **SDG 3.8**: Enables Universal Health Coverage by removing geographical barriers.
+* **Efficiency**: Targeted 40% reduction in medical lead times through decentralized data syncing.
 
-You can install the graph component into any project with:
+* ##  Tech Stack
+* **Framework**: Next.js 15 (Standard Tambo + Tools + MCP Template).
+* **UI/UX**: Tailwind CSS, Lucide React, and Tambo Generative UI.
+* **Local DB**: Dexie.js (IndexedDB).
+* **Voice/Neural**: Direct Bhashini API integration for multi-lingual rural outreach.
 
-```bash
-npx tambo add graph
-```
+##  Impact & SDG Alignment
+* **SDG 3.8**: Directly enables Universal Health Coverage in low-resource settings by removing geographical barriers.
+* **Efficiency**: Targeted 40% reduction in medical lead times through proactive, decentralized data syncing.
+* **Sustainability**: A cost-effective solution that leverages existing rural transportation infrastructure.
 
-The example Graph component demonstrates several key features:
+---
 
-- Different prop types (strings, arrays, enums, nested objects)
-- Multiple chart types (bar, line, pie)
-- Customizable styling (variants, sizes)
-- Optional configurations (title, legend, colors)
-- Data visualization capabilities
-
-Update the `components` array with any component(s) you want tambo to be able to use in a response!
-
-You can find more information about the options [here](https://docs.tambo.co/concepts/generative-interfaces/generative-components)
-
-### Add tools for tambo to use
-
-Tools are defined with `inputSchema` and `outputSchema`:
-
-```tsx
-export const tools: TamboTool[] = [
-  {
-    name: "globalPopulation",
-    description:
-      "A tool to get global population trends with optional year range filtering",
-    tool: getGlobalPopulationTrend,
-    inputSchema: z.object({
-      startYear: z.number().optional(),
-      endYear: z.number().optional(),
-    }),
-    outputSchema: z.array(
-      z.object({
-        year: z.number(),
-        population: z.number(),
-        growthRate: z.number(),
-      }),
-    ),
-  },
-];
-```
-
-Find more information about tools [here.](https://docs.tambo.co/concepts/tools)
-
-### The Magic of Tambo Requires the TamboProvider
-
-Make sure in the TamboProvider wrapped around your app:
-
-```tsx
-...
-<TamboProvider
-  apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
-  components={components} // Array of components to control
-  tools={tools} // Array of tools it can use
->
-  {children}
-</TamboProvider>
-```
-
-In this example we do this in the `Layout.tsx` file, but you can do it anywhere in your app that is a client component.
-
-### Voice input
-
-The template includes a `DictationButton` component using the `useTamboVoice` hook for speech-to-text input.
-
-### MCP (Model Context Protocol)
-
-The template includes MCP support for connecting to external tools and resources. You can use the MCP hooks from `@tambo-ai/react/mcp`:
-
-- `useTamboMcpPromptList` - List available prompts from MCP servers
-- `useTamboMcpPrompt` - Get a specific prompt
-- `useTamboMcpResourceList` - List available resources
-
-See `src/components/tambo/mcp-components.tsx` for example usage.
-
-### Change where component responses are shown
-
-The components used by tambo are shown alongside the message response from tambo within the chat thread, but you can have the result components show wherever you like by accessing the latest thread message's `renderedComponent` field:
-
-```tsx
-const { thread } = useTambo();
-const latestComponent =
-  thread?.messages[thread.messages.length - 1]?.renderedComponent;
-
-return (
-  <div>
-    {latestComponent && (
-      <div className="my-custom-wrapper">{latestComponent}</div>
-    )}
-  </div>
-);
-```
-
-For more detailed documentation, visit [Tambo's official docs](https://docs.tambo.co).
+###  Getting Started
+1.  **Clone the repo**: `git clone https://github.com/your-username/asha-copilot.git`
+2.  **Install dependencies**: `npm install`
+3.  **Initialize Tambo**: `npx tambo init`
+4.  **Run Dev**: `npm run dev`
