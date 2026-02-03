@@ -67,7 +67,7 @@ The ASHA Copilot is engineered as a **Digital Public Infrastructure (DPI)** for 
 ---
 
 ###  Getting Started
-1.  **Clone the repo**: `git clone https://github.com/your-username/asha-copilot.git`
+1.  **Clone the repo**: `git clone https://github.com/himanshu-anonymous/asha-copilot.git`
 2.  **Install dependencies**: `npm install`
 3.  **Initialize Tambo**: `npx tambo init`
 4.  **Run Dev**: `npm run dev`
